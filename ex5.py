@@ -29,7 +29,8 @@ def validate_players_symbol(symbol1, symbol2):
 
 def draw_board(rows, columns, symbol_size):
     vertical_bars = rows * symbol_size + (rows - 1)
-    print(vertical_bars)
+
+    board = ""
 
     row_separation_counter = 0
     for counter in range(vertical_bars):
@@ -42,9 +43,11 @@ def draw_board(rows, columns, symbol_size):
         else:
             line = line.replace(",", " " * symbol_size)
             row_separation_counter += 1
-        print(line)
+        board += "\n" + line
 
-    print("-" * (symbol_size * columns + (columns + 1)))
+    board += "\n" + "-" * (symbol_size * columns + (columns + 1))
+
+    return board
 
 
 def read_input_file(file):
@@ -70,13 +73,13 @@ def read_input_file(file):
             p2_symbol = x.split("=")[1].split(",")
             p2_symbol = [get_content_between_quotations(item) for item in p2_symbol]
 
-    print("Columns:", columns)
-    print("Rows:", rows)
-
     validate_players_symbol(p1_symbol, p2_symbol)
-    draw_board(rows, columns, len(p1_symbol))
+    board = draw_board(rows, columns, len(p1_symbol))
+
+    return board, p1_symbol, p2_symbol, columns, rows
 
 
 if __name__ == "__main__":
     file_name = "example.config"
-    read_input_file(file_name)
+    playing_board = read_input_file(file_name)
+    print(playing_board[0])
