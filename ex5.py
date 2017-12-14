@@ -30,7 +30,7 @@ def validate_players_symbol(symbol1, symbol2):
 def draw_board(rows, columns, symbol_size):
     vertical_bars = rows * symbol_size + (rows - 1)
 
-    board = ""
+    board = []
 
     row_separation_counter = 0
     for counter in range(vertical_bars):
@@ -43,9 +43,13 @@ def draw_board(rows, columns, symbol_size):
         else:
             line = line.replace(",", " " * symbol_size)
             row_separation_counter += 1
-        board += "\n" + line
 
-    board += "\n" + "-" * (symbol_size * columns + (columns + 1))
+        board.append(line)
+
+    board.append("-" * (symbol_size * columns + (columns + 1)))
+
+    for line in board:
+        print(line)
 
     return board
 
@@ -82,4 +86,6 @@ def read_input_file(file):
 if __name__ == "__main__":
     file_name = "example.config"
     playing_board = read_input_file(file_name)
-    print(playing_board[0])
+
+# TO READ: Solution is to make board only made of entries (spaces or symbols) and bars or separating lines
+# drawn in a visualization function
