@@ -34,7 +34,6 @@ def check_game_status(board, columns, rows, turn):
 
     for column in np.array(board):
         x = np.nonzero(column == turn)[0]
-        print(x)
         if check_if_successive(x):
             status[int(turn)] = True
             return status
@@ -107,7 +106,7 @@ def play(config_file):
                 game_entries[input_column - 1][empty_rows_in_column] = str(turn)
                 valid_column = True
                 draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
-                p1_won, p2_won, game_over = check_game_status(game_entries, columns_number, rows_number, turn)
+                game_over, p1_won, p2_won = check_game_status(game_entries, columns_number, rows_number, turn)
                 turn = switch_turn(turn)
 
             except ValueError:
