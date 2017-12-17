@@ -49,6 +49,7 @@ def visualize_board(board, columns, symbol_size):
     result += "\n" + "-" * (columns * symbol_size + columns + 1)
 
     print(result)
+    return result
 
 
 def read_input_file(file):

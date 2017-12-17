@@ -83,13 +83,14 @@ def draw_board(game_entries, columns_number, p1_symbol, p2_symbol, symbol_size):
 
             visualization_board.append(line)
 
-    visualize_board(visualization_board, columns_number, symbol_size)
+    return visualize_board(visualization_board, columns_number, symbol_size)
 
 
 def play(config_file):
     board, p1_symbol, p2_symbol, columns_number, rows_number = read_input_file(config_file)
     game_over, p1_won, p2_won = [False, False, False]
     turn = 1
+    final_state = ""
 
     game_entries = [["NULL" for x in range(rows_number)] for y in range(columns_number)]  # array list of each column
 
@@ -105,7 +106,7 @@ def play(config_file):
                 empty_rows_in_column = game_entries[input_column - 1].index("NULL")
                 game_entries[input_column - 1][empty_rows_in_column] = str(turn)
                 valid_column = True
-                draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
+                final_state = draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
                 game_over, p1_won, p2_won = check_game_status(game_entries, columns_number, rows_number, turn)
                 turn = switch_turn(turn)
 
@@ -124,7 +125,9 @@ def play(config_file):
     else:
         print("Player 2 won.")
 
+    return game_over, p1_won, p2_won, final_state
+
 
 if __name__ == "__main__":
-    file_name = "example.config"
-    play(file_name)
+    configuration_file = "example.config"
+    play(configuration_file)
