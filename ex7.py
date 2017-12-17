@@ -15,7 +15,9 @@ def rounds(file_name):
     p1_counter = 0
     p2_counter = 0
 
-    score_board = "\nSCORES OF ALL ROUNDS:\n----------------------\n\n"
+    score_board = "-*-*-*-*-*-*-*-*-*-*-*-*-\n"
+    score_board += "| SCORES OF ALL ROUNDS  |\n"
+    score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-\n\n"
 
     for counter in range(rounds_number):
         game_over, p1_won, p2_won, final_state = play(file_name)
@@ -30,9 +32,11 @@ def rounds(file_name):
         else:
             score_board += "It's a tie.\n"
 
-        score_board += final_state + "\n-----------------------------------\n\n"
+        score_board += final_state + "\n\n-----------------------------------\n\n"
 
-    score_board += "OVER ALL TOURNAMENT SCORE:\n\n"
+    score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n"
+    score_board += "| OVER ALL TOURNAMENT SCORE |\n"
+    score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n\n"
     if p1_counter > p2_counter:
         score_board += "PLAYER 1 IS THE WINNER OF THIS TOURNAMENT."
     elif p2_counter > p1_counter:
