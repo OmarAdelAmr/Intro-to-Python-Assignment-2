@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+"""ex7.py
+Author: Omar Amr
+Matr.Nr.: K11776960
+Exercise 7
+"""
+
 from ex6 import play
 
 
@@ -25,10 +32,10 @@ def rounds(file_name):
         score_board += "Round {} score:\n\n".format(counter + 1)
         if p1_won:
             p1_counter += 1
-            score_board += "Player 1 won tis round.\n"
+            score_board += "Player 1 won this round.\n"
         elif p2_won:
             p2_counter += 1
-            score_board += "Player 2 won tis round.\n"
+            score_board += "Player 2 won this round.\n"
         else:
             score_board += "It's a tie.\n"
 

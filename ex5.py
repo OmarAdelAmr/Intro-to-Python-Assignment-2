@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+"""ex5.py
+Author: Omar Amr
+Matr.Nr.: K11776960
+Exercise 5
+"""
+
+
 def get_content_between_quotations(input_string):
     input_string = str(input_string)
     start = input_string.index('"') + 1

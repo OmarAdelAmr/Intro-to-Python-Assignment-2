@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+"""ex6.py
+Author: Omar Amr
+Matr.Nr.: K11776960
+Exercise 6
+"""
+
 from ex5 import read_input_file
 from ex5 import visualize_board
 import numpy as np
