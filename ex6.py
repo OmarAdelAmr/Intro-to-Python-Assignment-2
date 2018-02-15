@@ -105,12 +105,14 @@ def play(config_file):
         valid_column = False
         while not valid_column:
             try:
-                empty_rows_in_column = -1
+                input_type = -3
                 input_column = int(input("Player's {} turn: ".format(turn)))
                 if input_column < 1 or input_column > columns_number:
-                    empty_rows_in_column = -2
+                    input_type = -2
                     raise ValueError
+                input_type = -1
                 empty_rows_in_column = game_entries[input_column - 1].index("NULL")
+                print("HERE")
                 game_entries[input_column - 1][empty_rows_in_column] = str(turn)
                 valid_column = True
                 final_state = draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
@@ -118,9 +120,9 @@ def play(config_file):
                 turn = switch_turn(turn)
 
             except ValueError:
-                if empty_rows_in_column == -1:
+                if input_type == -1:
                     print("Column {} has no empty space.".format(input_column))
-                elif empty_rows_in_column == -2:
+                elif input_type == -2:
                     print("Please enter a valid column number.")
                 else:
                     print("Please enter a numeric value.")
