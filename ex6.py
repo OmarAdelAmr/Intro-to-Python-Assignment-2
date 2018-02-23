@@ -112,7 +112,6 @@ def play(config_file):
                     raise ValueError
                 input_type = -1
                 empty_rows_in_column = game_entries[input_column - 1].index("NULL")
-                print("HERE")
                 game_entries[input_column - 1][empty_rows_in_column] = str(turn)
                 valid_column = True
                 final_state = draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
