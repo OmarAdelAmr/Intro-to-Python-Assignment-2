@@ -42,7 +42,7 @@ def rounds(file_name):
         score_board += final_state + "\n\n-----------------------------------\n\n"
 
     score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n"
-    score_board += "| OVER ALL TOURNAMENT SCORE |\n"
+    score_board += "| OVERALL TOURNAMENT SCORE |\n"
     score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n\n"
     if p1_counter > p2_counter:
         score_board += "PLAYER 1 IS THE WINNER OF THIS TOURNAMENT."
@@ -57,7 +57,6 @@ def rounds(file_name):
     output.close()
 
 
-# TODO: Ask where the output file should be
 if __name__ == "__main__":
     config_file = "example.config"
     rounds(config_file)
