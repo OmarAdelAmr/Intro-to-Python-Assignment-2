@@ -12,18 +12,54 @@ from ex6 import draw_board
 from ex7 import rounds
 
 
-def choose_mode(config_file):
-    accepted_input = False
-    while not accepted_input:
-        selected_mode = input("Press 1 for Normal Mode or 2 for Pop Out Mode: ")
-        if selected_mode == "1":
-            accepted_input = True
-            rounds(config_file)
-        elif selected_mode == "2":
-            accepted_input = True
-            play_bonus(configuration_file)
+def play_tournament_bonus(config_file):
+    valid = False
+    rounds_number = ""
+    while not valid:
+        try:
+            rounds_number = int(input("Please enter how many rounds you would like to play: "))
+            if rounds_number < 1:
+                raise ValueError
+            valid = True
+        except ValueError:
+            print("Please enter a number greater than 0.")
+
+    p1_counter = 0
+    p2_counter = 0
+
+    score_board = "-*-*-*-*-*-*-*-*-*-*-*-*-\n"
+    score_board += "| SCORES OF ALL ROUNDS  |\n"
+    score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-\n\n"
+
+    for counter in range(rounds_number):
+        game_over, p1_won, p2_won, final_state = play_bonus(config_file)
+
+        score_board += "Round {} score:\n\n".format(counter + 1)
+        if p1_won:
+            p1_counter += 1
+            score_board += "Player 1 won this round.\n"
+        elif p2_won:
+            p2_counter += 1
+            score_board += "Player 2 won this round.\n"
         else:
-            print("Not a valid input.")
+            score_board += "It's a tie.\n"
+
+        score_board += final_state + "\n\n-----------------------------------\n\n"
+
+    score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n"
+    score_board += "| OVERALL TOURNAMENT SCORE |\n"
+    score_board += "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n\n"
+    if p1_counter > p2_counter:
+        score_board += "PLAYER 1 IS THE WINNER OF THIS TOURNAMENT."
+    elif p2_counter > p1_counter:
+        score_board += "PLAYER 2 IS THE WINNER OF THIS TOURNAMENT."
+    else:
+        score_board += "IT'S A TIE, BOTH PLAYERS WON THE SAME NUMBER OF GAMES."
+
+    print(score_board)
+    output = open("Results Bonus.txt", "w")
+    output.write(score_board)
+    output.close()
 
 
 def play_bonus(config_file):
@@ -76,6 +112,7 @@ def play_bonus(config_file):
                         valid_column = True
                         final_state = draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
                         game_over, p1_won, p2_won = check_game_status(game_entries, columns_number, rows_number, turn)
+                        # TODO: following if condition not working properly
                         if any(item is False for item in [game_over, p1_won, p2_won]):
                             other_check = switch_turn(turn)
                             game_over, p1_won, p2_won = check_game_status(game_entries, columns_number, rows_number,
@@ -105,7 +142,16 @@ def play_bonus(config_file):
     return game_over, p1_won, p2_won, final_state
 
 
-# TODO: Add score board and write results to a file.
 if __name__ == "__main__":
     configuration_file = "example.config"
-    choose_mode(configuration_file)
+    accepted_input = False
+    while not accepted_input:
+        selected_mode = input("Press 1 for Normal Mode or 2 for Pop Out Mode: ")
+        if selected_mode == "1":
+            accepted_input = True
+            rounds(configuration_file)
+        elif selected_mode == "2":
+            accepted_input = True
+            play_tournament_bonus(configuration_file)
+        else:
+            print("Not a valid input.")
