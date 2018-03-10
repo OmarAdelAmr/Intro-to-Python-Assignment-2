@@ -8,6 +8,8 @@ Exercise 7
 from ex6 import play
 
 
+# This function takes the number of rounds to be player as input from the user. Then it calls the the plat function
+# from ex6. Each round is accumulated to a string and eventually this string is written to "Results.txt" file.
 def rounds(file_name):
     valid = False
     while not valid:
@@ -51,12 +53,14 @@ def rounds(file_name):
     else:
         score_board += "IT'S A TIE, BOTH PLAYERS WON THE SAME NUMBER OF GAMES."
 
+    # Write results to text file.
     print(score_board)
     output = open("Results.txt", "w")
     output.write(score_board)
     output.close()
 
 
+# Main function
 if __name__ == "__main__":
     config_file = "example.config"
     rounds(config_file)

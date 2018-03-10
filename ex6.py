@@ -10,6 +10,7 @@ from ex5 import visualize_board
 import numpy as np
 
 
+# This function is called after each player finishes his turn ti switch the player.
 def switch_turn(turn):
     if turn == 1:
         return 2
@@ -17,6 +18,7 @@ def switch_turn(turn):
         return 1
 
 
+# This function checks if the play bord contains 4 consecutive cells that belong to the same player.
 def check_if_successive(item):
     if len(item) < 4:
         return False
@@ -33,24 +35,28 @@ def check_if_successive(item):
     return False
 
 
+# This function is called after each player ends his turn in order to check whether the player won or not.
 def check_game_status(board, columns, rows, turn):
     turn = str(turn)
     board1 = np.flip(np.transpose(board), 0)
     board2 = np.flip(board1, -1)
     status = [False, False, False]  # [Game over, P1 won, P2 won]
 
+    # Check horizontally
     for column in np.array(board):
         x = np.nonzero(column == turn)[0]
         if check_if_successive(x):
             status[int(turn)] = True
             return status
 
+    # Check vertically
     for row in board1:
         x = np.nonzero(row == turn)[0]
         if check_if_successive(x):
             status[int(turn)] = True
             return status
 
+    # Check diagonals
     for counter in range(-1 * rows + 1, columns):
         diagonal1 = np.diag(board1, counter)
         diagonal2 = np.diag(board2, counter)
@@ -60,6 +66,7 @@ def check_game_status(board, columns, rows, turn):
             status[int(turn)] = True
             return status
 
+    # Check if the board is full with no winners in order to show game over.
     empty_counter = 0
     for column in board:  # Check of all entries are full
         empty = [e for e in column if e == "NULL"]
@@ -72,6 +79,8 @@ def check_game_status(board, columns, rows, turn):
     return status
 
 
+# This function adds new players' entries to the string that represents the board game. This string is then printed to
+# show the new status of the board. The board is visualized by calling the visualization function from ex5.
 def draw_board(game_entries, columns_number, p1_symbol, p2_symbol, symbol_size):
     game_entries = np.flip(np.transpose(game_entries), 0)
     visualization_board = []
@@ -93,6 +102,8 @@ def draw_board(game_entries, columns_number, p1_symbol, p2_symbol, symbol_size):
     return visualize_board(visualization_board, columns_number, symbol_size)
 
 
+# This function contains the main logic of the game. The function loops until one of the players win or the board
+# is totally full.
 def play(config_file):
     board, p1_symbol, p2_symbol, columns_number, rows_number = read_input_file(config_file)
     game_over, p1_won, p2_won = [False, False, False]
@@ -136,6 +147,7 @@ def play(config_file):
     return game_over, p1_won, p2_won, final_state
 
 
+# Main function
 if __name__ == "__main__":
     configuration_file = "example.config"
     play(configuration_file)

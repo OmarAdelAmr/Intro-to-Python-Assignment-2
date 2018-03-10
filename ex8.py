@@ -12,6 +12,7 @@ from ex6 import draw_board
 from ex7 import rounds
 
 
+# Ask the user for how many rounds to be played and save the final result in "Results Bonus.txt" file.
 def play_tournament_bonus(config_file):
     valid = False
     rounds_number = ""
@@ -62,6 +63,8 @@ def play_tournament_bonus(config_file):
     output.close()
 
 
+# This function contains the main logic of the game. The function loops until one of the players win or the board
+# is totally full. It differs from ex6 as the players in this game are allowed to pop up in their turn.
 def play_bonus(config_file):
     board, p1_symbol, p2_symbol, columns_number, rows_number = read_input_file(config_file)
     game_over, p1_won, p2_won = [False, False, False]
@@ -113,7 +116,7 @@ def play_bonus(config_file):
                         final_state = draw_board(game_entries, columns_number, p1_symbol, p2_symbol, len(p1_symbol))
                         game_over, p1_won, p2_won = check_game_status(game_entries, columns_number, rows_number, turn)
                         # TODO: following if condition not working properly
-                        if any(item is False for item in [game_over, p1_won, p2_won]):
+                        if not(game_over or p1_won or p2_won):
                             other_check = switch_turn(turn)
                             game_over, p1_won, p2_won = check_game_status(game_entries, columns_number, rows_number,
                                                                           other_check)
@@ -142,6 +145,7 @@ def play_bonus(config_file):
     return game_over, p1_won, p2_won, final_state
 
 
+# Main function. User is asked to choose between Normal mode and Pop Out mode.
 if __name__ == "__main__":
     configuration_file = "example.config"
     accepted_input = False

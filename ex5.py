@@ -6,6 +6,7 @@ Exercise 5
 """
 
 
+# Helper method that extracts the players' symbols from the quotations.
 def get_content_between_quotations(input_string):
     input_string = str(input_string)
     start = input_string.index('"') + 1
@@ -15,6 +16,7 @@ def get_content_between_quotations(input_string):
     return result
 
 
+# This method makes sure that the players' symbols are valid.
 def validate_players_symbol(symbol1, symbol2):
     symbol1_rows = len(symbol1)
     symbol2_rows = len(symbol2)
@@ -33,6 +35,8 @@ def validate_players_symbol(symbol1, symbol2):
     return valid
 
 
+# This method constructs the board as a string based on the values in the configuration file.
+# The output is a string that consists of spaces representing the board cells.
 def draw_board(rows, columns, symbol_size):
     line = " " * columns * symbol_size + "\n"
     line = line * rows * symbol_size
@@ -42,6 +46,8 @@ def draw_board(rows, columns, symbol_size):
     return board
 
 
+# This method visualizes the final board, but first it adds the separators between rows and column in the
+# string generated from the "draw_board" method
 def visualize_board(board, columns, symbol_size):
     result = ""
     separator_counter = 0
@@ -60,6 +66,8 @@ def visualize_board(board, columns, symbol_size):
     return result
 
 
+# This method reads the configuration file and extracts the needed information such as:
+# Width, Height, Players' symbols
 def read_input_file(file):
     file_content = open(file, 'r').read()
     file_content = file_content.splitlines()
@@ -93,6 +101,7 @@ def read_input_file(file):
     return board, p1_symbol, p2_symbol, columns, rows
 
 
+# Main method
 if __name__ == "__main__":
     file_name = "example.config"
     playing_board = read_input_file(file_name)
